@@ -1,0 +1,7 @@
+name: ScavengerHunt
+version: '1.0.0-alpha'
+main: user.puntoofa.scavengerHunt.ScavengerHunt
+api-version: '1.21'
+load: STARTUP
+authors: [ The_Great_K ]
+description: Scavenger hunt plugin made for Puntoofa
