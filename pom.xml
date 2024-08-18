@@ -6,7 +6,7 @@
 
     <groupId>user.puntoofa</groupId>
     <artifactId>scavengerhunt</artifactId>
-    <version>1.0.0-alpha</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>scavengerhunt</name>

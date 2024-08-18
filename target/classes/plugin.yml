@@ -1,0 +1,43 @@
+name: ScavengerHunt
+version: 1.0.0
+main: user.puntoofa.scavengerHunt.ScavengerHunt
+api-version: '1.21'
+load: STARTUP
+authors: [ The_Great_K ]
+description: "Scavenger hunt plugin made for Puntoofa"
+
+commands:
+  start:
+    description: "Starts scavenger hunt, /scav is enabled, /additem is disabled"
+    usage: "/start"
+    permission: scavengerhunt.commands.start
+    permission-message: "You do not have permission to use this command!"
+  scav:
+    description: "Opens scavenger hunt gui of items that need to be found."
+    usage: "/scav"
+    permission: scavengerhunt.commands.gui
+    permission-message: "You do not have permission to use this command!"
+  additem:
+    description: "Adds held/specified item to scavenger list in specified slot"
+    usage: "/additem <slot> [<item>]"
+    permission: scavengerhunt.commands.add
+    permission-message: "You do not have permission to use this command!"
+  removeitem:
+    description: "Removes item in specified slot from scavenger list"
+    usage: "/removeitem <slot>"
+    permission: scavengerhunt.commands.remove
+    permission-message: "You do not have permission to use this command!"
+
+permissions:
+  scavengerhunt.commands.start:
+    description: "Starts scavenger hunt"
+    permission: op
+  scavengerhunt.commands.gui:
+    description: "Opens main scavenger gui"
+    default: true
+  scavengerhunt.commands.add:
+    description: "Adds scavenger item to list"
+    default: op
+  scavengerhunt.commands.remove:
+    description: "Removes scavenger item from list"
+    default: op
