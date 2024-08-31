@@ -1,5 +1,5 @@
 name: ScavengerHunt
-version: 1.0.0
+version: 1.0.1
 main: user.puntoofa.scavengerHunt.ScavengerHunt
 api-version: '1.21'
 load: STARTUP
@@ -7,13 +7,23 @@ authors: [ The_Great_K ]
 description: "Scavenger hunt plugin made for Puntoofa"
 
 commands:
-  start:
+  sstart:
     description: "Starts scavenger hunt, /scav is enabled, /additem is disabled"
-    usage: "/start"
+    usage: "/sstart"
     permission: scavengerhunt.commands.start
     permission-message: "You do not have permission to use this command!"
+  spause:
+    description: "Pauses scavenger hunt, /scav is disabled, /additem is enabled"
+    usage: "/spause"
+    permission: scavengerhunt.commands.pause
+    permission-message: "You do not have permission to use this command!"
+  srestart:
+    description: "Restarts scavenger hunt, /scav is disabled, /additem is enabled, progress and gui is reset"
+    usage: "/srestart"
+    permission: scavengerhunt.commands.restart
+    permission-message: "You do not have permission to use this command!"
   scav:
-    description: "Opens scavenger hunt gui of items that need to be found."
+    description: "Opens scavenger hunt gui of items that need to be found"
     usage: "/scav"
     permission: scavengerhunt.commands.gui
     permission-message: "You do not have permission to use this command!"
@@ -31,6 +41,12 @@ commands:
 permissions:
   scavengerhunt.commands.start:
     description: "Starts scavenger hunt"
+    permission: op
+  scavengerhunt.commands.pause:
+    description: "Pauses scavenger hunt"
+    permission: op
+  scavengerhunt.commands.restart:
+    description: "Restarts scavenger hunt"
     permission: op
   scavengerhunt.commands.gui:
     description: "Opens main scavenger gui"

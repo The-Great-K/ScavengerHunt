@@ -1,33 +1,27 @@
 package user.puntoofa.scavengerHunt.commands;
 
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import user.puntoofa.scavengerHunt.ScavengerHunt;
 
-import java.util.HashSet;
-
-public class StartCommand implements CommandExecutor {
+public class PauseCommand implements CommandExecutor {
     private final ScavengerHunt plugin;
 
-    public StartCommand(ScavengerHunt plugin) {
+    public PauseCommand(ScavengerHunt plugin) {
         this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        plugin.scavStarted = true;
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            plugin.finishedList.put(player, new HashSet<>());
-        });
+        if (!plugin.scavStarted) {
+            sender.sendMessage("Can't pause scavenger hunt that hasn't started!");
+            return false;
+        }
 
-        Bukkit.broadcast(Component.text("Scavenger hunt has started!"));
-
-        plugin.getLogger().info("Started scavenger hunt");
-
+        plugin.scavStarted = false;
+        plugin.getLogger().info("Paused scavenger hunt");
         return true;
     }
 }

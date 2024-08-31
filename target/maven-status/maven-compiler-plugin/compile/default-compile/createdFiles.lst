@@ -1,5 +1,7 @@
 user\puntoofa\scavengerHunt\commands\ScavGuiCommand.class
 user\puntoofa\scavengerHunt\commands\RemoveItemCommand.class
+user\puntoofa\scavengerHunt\commands\PauseCommand.class
+user\puntoofa\scavengerHunt\commands\RestartCommand.class
 user\puntoofa\scavengerHunt\gui\ScavGuiListener.class
 user\puntoofa\scavengerHunt\commands\StartCommand.class
 user\puntoofa\scavengerHunt\ScavengerHunt.class

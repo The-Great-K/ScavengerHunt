@@ -11,9 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import user.puntoofa.scavengerHunt.commands.AddItemCommand;
-import user.puntoofa.scavengerHunt.commands.ScavGuiCommand;
-import user.puntoofa.scavengerHunt.commands.StartCommand;
+import user.puntoofa.scavengerHunt.commands.*;
 import user.puntoofa.scavengerHunt.gui.ScavGuiListener;
 
 import java.util.HashMap;
@@ -36,7 +34,9 @@ public final class ScavengerHunt extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new ScavGuiListener(), this);
         getServer().getPluginManager().registerEvents(this, this);
 
-        Objects.requireNonNull(getCommand("start")).setExecutor(new StartCommand(this));
+        Objects.requireNonNull(getCommand("sstart")).setExecutor(new StartCommand(this));
+        Objects.requireNonNull(getCommand("spause")).setExecutor(new PauseCommand(this));
+        Objects.requireNonNull(getCommand("srestart")).setExecutor(new RestartCommand(this));
         Objects.requireNonNull(getCommand("scav")).setExecutor(new ScavGuiCommand(this));
         Objects.requireNonNull(getCommand("additem")).setExecutor(new AddItemCommand(this));
 
