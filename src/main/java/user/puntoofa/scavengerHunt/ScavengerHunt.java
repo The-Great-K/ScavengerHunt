@@ -8,17 +8,17 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import user.puntoofa.scavengerHunt.commands.*;
 import user.puntoofa.scavengerHunt.gui.ScavGuiListener;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
+@SuppressWarnings({"DataFlowIssue", "ConstantValue"})
 public final class ScavengerHunt extends JavaPlugin implements Listener {
     public boolean scavStarted = false;
 
@@ -34,11 +34,12 @@ public final class ScavengerHunt extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new ScavGuiListener(), this);
         getServer().getPluginManager().registerEvents(this, this);
 
-        Objects.requireNonNull(getCommand("sstart")).setExecutor(new StartCommand(this));
-        Objects.requireNonNull(getCommand("spause")).setExecutor(new PauseCommand(this));
-        Objects.requireNonNull(getCommand("srestart")).setExecutor(new RestartCommand(this));
-        Objects.requireNonNull(getCommand("scav")).setExecutor(new ScavGuiCommand(this));
-        Objects.requireNonNull(getCommand("additem")).setExecutor(new AddItemCommand(this));
+        getCommand("sstart").setExecutor(new StartCommand(this));
+        getCommand("spause").setExecutor(new PauseCommand(this));
+        getCommand("srestart").setExecutor(new RestartCommand(this));
+        getCommand("scav").setExecutor(new ScavGuiCommand(this));
+        getCommand("additem").setExecutor(new AddItemCommand(this));
+        getCommand("removeitem").setExecutor(new RemoveItemCommand(this));
 
         getLogger().info("Scavenger Hunt plugin successfully loaded!");
     }
@@ -48,16 +49,27 @@ public final class ScavengerHunt extends JavaPlugin implements Listener {
     }
 
     @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+        finishedList.get(player).clear();
+    }
+
+    @EventHandler
     public void onPlayerInventoryChange(PlayerInventorySlotChangeEvent event) {
         if (!scavStarted) return;
 
         Player player = event.getPlayer();
         Material item = null;
-        if (player.getInventory().getItem(event.getSlot()) != null) {
-            item = player.getInventory().getItem(event.getSlot()).getType();
+        if (event.getNewItemStack() != null) {
+            item = event.getNewItemStack().getType();
         } else {
             return;
         }
+
+        if (scavengerList.containsKey(event.getOldItemStack().getType())) {
+            finishedList.get(player).remove(scavengerList.get(event.getOldItemStack().getType()));
+        }
+
         if (scavengerList.containsKey(item) && !finishedList.get(player).contains(scavengerList.get(item))) {
             finishedList.get(player).add(scavengerList.get(item));
             Bukkit.broadcast(Component.text(
